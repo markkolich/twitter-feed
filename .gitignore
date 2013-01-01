@@ -2,5 +2,13 @@
 
 # Package Files #
 *.jar
-*.war
 *.ear
+
+.project
+.classpath
+project/target
+dist
+target
+bin
+
+src/main/webapp/WEB-INF/work
