@@ -23,7 +23,7 @@
 
 	<!-- Configures all supporting beans -->
 	<import resource="beans.xml" />
-		
+			
 	<!-- Configures Spring 3 MVC -->
 	<import resource="mvc.xml" />
 			

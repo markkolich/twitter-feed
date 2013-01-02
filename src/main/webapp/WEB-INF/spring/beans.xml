@@ -22,6 +22,31 @@
    	<!-- The default application properties (packaged with .war). -->
 	<context:property-placeholder location="classpath:twittercache.default.properties"
 		ignore-unresolvable="true" order="3" />
+		
+	<bean id="HttpClient"
+		class="com.kolich.http.KolichDefaultHttpClient.KolichHttpClientFactory"
+		factory-method="getNewInstanceNoProxySelector">
+		<constructor-arg><value>twitter-cache (+https://github.com/markkolich/twitter-cache; username=${twitter.api.username})</value></constructor-arg>
+	</bean>
+	
+	<bean id="HavaloClient"
+		class="com.kolich.havalo.client.service.HavaloClient"
+		depends-on="HttpClient">
+		<constructor-arg index="0" ref="HttpClient" />
+		<constructor-arg index="1"><value>${havalo.api.key}</value></constructor-arg>
+		<constructor-arg index="2"><value>${havalo.api.secret}</value></constructor-arg>
+		<constructor-arg index="3"><value>${havalo.api.url}</value></constructor-arg>
+	</bean>
+	
+	<bean id="TwitterApiConnector"
+		class="com.kolich.twitter.TwitterApiConnector"
+		depends-on="HttpClient">
+		<constructor-arg index="0" ref="HttpClient" />
+		<constructor-arg index="1"><value>${twitter.api.key}</value></constructor-arg>
+		<constructor-arg index="2"><value>${twitter.api.secret}</value></constructor-arg>
+		<constructor-arg index="3"><value>${twitter.api.token}</value></constructor-arg>
+		<constructor-arg index="4"><value>${twitter.api.token.secret}</value></constructor-arg>
+	</bean>
    	
    	<!-- Bootstrap -->
    	

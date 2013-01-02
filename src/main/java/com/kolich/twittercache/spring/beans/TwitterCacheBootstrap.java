@@ -29,15 +29,35 @@ package com.kolich.twittercache.spring.beans;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.kolich.havalo.client.entities.KeyPair;
+import com.kolich.havalo.client.service.HavaloClient;
+import com.kolich.http.HttpClient4Closure.HttpFailure;
+import com.kolich.http.HttpClient4Closure.HttpResponseEither;
 
 public final class TwitterCacheBootstrap implements InitializingBean {
 	
 	private static final Logger logger__ =
 		LoggerFactory.getLogger(TwitterCacheBootstrap.class);
+	
+	private HavaloClient havalo_;
+	
+	@Autowired
+	public TwitterCacheBootstrap(final HavaloClient havalo) {
+		havalo_ = havalo;
+	}	
 		
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		
+		logger__.info("bootstrap bitchez");
+		final HttpResponseEither<HttpFailure, KeyPair> auth =
+			havalo_.authenticate();
+		if(auth.success()) {
+			logger__.info("-------- " + auth.right().getKey().toString());
+		} else {
+			logger__.error("-------- " + auth.left().getStatusCode());
+		}
 	}
 
 }

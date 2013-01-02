@@ -41,7 +41,7 @@ object Dependencies {
 
   private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.4" % "compile"
   private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.4" % "compile"
-  private val havaloClient = "com.kolich" % "havalo-client" % "0.0.8" % "compile"
+  private val havaloClient = "com.kolich" % "havalo-client" % "1.0" % "compile"
 
   // External dependencies
 
