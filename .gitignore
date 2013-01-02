@@ -12,3 +12,4 @@ target
 bin
 
 src/main/webapp/WEB-INF/work
+src/main/resources/twittercache.default.properties
