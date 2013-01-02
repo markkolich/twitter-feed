@@ -24,14 +24,31 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kolich.twittercache.spring.controllers;
+package com.kolich.twittercache.spring;
 
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-public abstract class AbstractTwitterCacheController {
-	
-	protected final static ModelAndView getModelAndView(final String viewName) {
-		return new ModelAndView(viewName);
+@Configuration
+public class TwitterCacheWebConfig extends WebMvcConfigurationSupport {
+
+	@Bean
+	@Override
+	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+		final RequestMappingHandlerMapping hm = super.requestMappingHandlerMapping();
+		// NOTE: It's important that this is set to false such that Spring
+		// does not URL-decode the path on an incoming request before it
+		// attempts to map it to the right Controller.  For example, if the
+		// original incoming request is ...
+		//   /havalo/app/api/object/files%2Fimag%252Fes%2Fbogus.jpg
+		// ... then Spring, by defualt, will URL-decode this to ...
+		//   /havalo/app/api/object/files/imag%2Fes/bogus.jpg
+		// ... which is WRONG (it won't map to a real Controller because of
+		// the URL-decoded slashes).
+		hm.setUrlDecode(false);
+		return hm;
 	}
 	
 }

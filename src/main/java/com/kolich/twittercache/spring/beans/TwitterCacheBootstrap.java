@@ -41,12 +41,12 @@ public final class TwitterCacheBootstrap implements InitializingBean {
 	private static final Logger logger__ =
 		LoggerFactory.getLogger(TwitterCacheBootstrap.class);
 	
-	private HavaloClient havalo_;
+	private final HavaloClient havalo_;
 	
 	@Autowired
 	public TwitterCacheBootstrap(final HavaloClient havalo) {
 		havalo_ = havalo;
-	}	
+	}
 		
 	@Override
 	public void afterPropertiesSet() throws Exception {

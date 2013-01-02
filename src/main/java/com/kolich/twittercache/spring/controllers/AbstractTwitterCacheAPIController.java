@@ -24,15 +24,25 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kolich.twittercache.spring.controllers.api;
+package com.kolich.twittercache.spring.controllers;
 
-import com.kolich.twittercache.spring.controllers.AbstractTwitterCacheController;
+import org.slf4j.Logger;
 
-public abstract class AbstractTwitterCacheAPIController
-	extends AbstractTwitterCacheController {
+import com.kolich.havalo.client.service.HavaloClient;
+import com.kolich.twitter.TwitterApiConnector;
+
+public abstract class AbstractTwitterCacheAPIController {
+	
+	protected final Logger logger_;
+	
+	protected final HavaloClient havalo_;
+	protected final TwitterApiConnector twitter_;
 		
-	protected AbstractTwitterCacheAPIController() {
-		super();
+	protected AbstractTwitterCacheAPIController(final Logger logger,
+		final HavaloClient havalo, final TwitterApiConnector twitter) {
+		logger_ = logger;
+		havalo_ = havalo;
+		twitter_ = twitter;
 	}
 	
 }
