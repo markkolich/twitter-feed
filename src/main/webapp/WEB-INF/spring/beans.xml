@@ -20,7 +20,7 @@
     	ignore-unresolvable="true" ignore-resource-not-found="true" order="2" />
     	
    	<!-- The default application properties (packaged with .war). -->
-	<context:property-placeholder location="classpath:twittercache.default.properties"
+	<context:property-placeholder location="classpath:default.properties"
 		ignore-unresolvable="true" order="3" />
 		
 	<bean id="HttpClient"
