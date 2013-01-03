@@ -24,31 +24,25 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kolich.twittercache.spring;
+package com.kolich.twitterfeed.spring.controllers;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.slf4j.Logger;
 
-@Configuration
-public class TwitterCacheWebConfig extends WebMvcConfigurationSupport {
+import com.kolich.havalo.client.service.HavaloClient;
+import com.kolich.twitter.TwitterApiConnector;
 
-	@Bean
-	@Override
-	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-		final RequestMappingHandlerMapping hm = super.requestMappingHandlerMapping();
-		// NOTE: It's important that this is set to false such that Spring
-		// does not URL-decode the path on an incoming request before it
-		// attempts to map it to the right Controller.  For example, if the
-		// original incoming request is ...
-		//   /havalo/app/api/object/files%2Fimag%252Fes%2Fbogus.jpg
-		// ... then Spring, by defualt, will URL-decode this to ...
-		//   /havalo/app/api/object/files/imag%2Fes/bogus.jpg
-		// ... which is WRONG (it won't map to a real Controller because of
-		// the URL-decoded slashes).
-		hm.setUrlDecode(false);
-		return hm;
+public abstract class AbstractTwitterFeedAPIController {
+	
+	protected final Logger logger_;
+	
+	protected final HavaloClient havalo_;
+	protected final TwitterApiConnector twitter_;
+		
+	protected AbstractTwitterFeedAPIController(final Logger logger,
+		final HavaloClient havalo, final TwitterApiConnector twitter) {
+		logger_ = logger;
+		havalo_ = havalo;
+		twitter_ = twitter;
 	}
 	
 }

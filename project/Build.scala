@@ -88,16 +88,16 @@ object Resolvers {
 
 }
 
-object TwitterCache extends Build {
+object TwitterFeed extends Build {
 
   import Dependencies._
   import Resolvers._
 
-  private val aName = "twitter-cache"
-  private val aVer = "0.0.1"
+  private val aName = "twitter-feed"
+  private val aVer = "0.1"
   private val aOrg = "com.kolich"
 
-  lazy val twitterCache: Project = Project(
+  lazy val twitterFeed: Project = Project(
     aName,
     new File("."),
     settings = Defaults.defaultSettings ++ Seq(resolvers := depResolvers) ++ Seq(

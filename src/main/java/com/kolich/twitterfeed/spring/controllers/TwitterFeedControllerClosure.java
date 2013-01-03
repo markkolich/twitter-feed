@@ -1,14 +1,14 @@
-package com.kolich.twittercache.spring.controllers;
+package com.kolich.twitterfeed.spring.controllers;
 
 import org.slf4j.Logger;
 
 import com.kolich.spring.controllers.KolichControllerClosure;
-import com.kolich.twittercache.exceptions.TwitterCacheException;
+import com.kolich.twitterfeed.exceptions.TwitterFeedException;
 
-public abstract class TwitterCacheControllerClosure<T>
+public abstract class TwitterFeedControllerClosure<T>
 	extends KolichControllerClosure<T> {
 
-	public TwitterCacheControllerClosure(String comment, Logger logger) {
+	public TwitterFeedControllerClosure(String comment, Logger logger) {
 		super(comment, logger);
 	}
 	
@@ -21,7 +21,7 @@ public abstract class TwitterCacheControllerClosure<T>
 			throw e;
 		} catch (Exception e) {
 			logger_.debug(comment_, e);
-			throw new TwitterCacheException(e);
+			throw new TwitterFeedException(e);
 		}
 	}
 

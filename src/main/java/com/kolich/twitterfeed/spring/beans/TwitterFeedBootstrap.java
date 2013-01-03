@@ -24,7 +24,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kolich.twittercache.spring.beans;
+package com.kolich.twitterfeed.spring.beans;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,15 +36,15 @@ import com.kolich.havalo.client.service.HavaloClient;
 import com.kolich.http.HttpClient4Closure.HttpFailure;
 import com.kolich.http.HttpClient4Closure.HttpResponseEither;
 
-public final class TwitterCacheBootstrap implements InitializingBean {
+public final class TwitterFeedBootstrap implements InitializingBean {
 	
 	private static final Logger logger__ =
-		LoggerFactory.getLogger(TwitterCacheBootstrap.class);
+		LoggerFactory.getLogger(TwitterFeedBootstrap.class);
 	
 	private final HavaloClient havalo_;
 	
 	@Autowired
-	public TwitterCacheBootstrap(final HavaloClient havalo) {
+	public TwitterFeedBootstrap(final HavaloClient havalo) {
 		havalo_ = havalo;
 	}
 		

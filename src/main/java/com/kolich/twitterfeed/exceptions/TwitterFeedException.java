@@ -24,23 +24,23 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.kolich.twittercache.exceptions;
+package com.kolich.twitterfeed.exceptions;
 
 import com.kolich.common.KolichCommonException;
 
-public class TwitterCacheException extends KolichCommonException {
+public class TwitterFeedException extends KolichCommonException {
 	
 	private static final long serialVersionUID = -7889750833064607753L;
 
-	public TwitterCacheException(String message, Throwable cause) {
+	public TwitterFeedException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
-	public TwitterCacheException(Throwable cause) {
+	public TwitterFeedException(Throwable cause) {
 		super(cause);
 	}
 	
-	public TwitterCacheException(String message) {
+	public TwitterFeedException(String message) {
 		super(message);
 	}
 	

@@ -1,4 +1,4 @@
-package com.kolich.twittercache.spring.controllers.api;
+package com.kolich.twitterfeed.spring.controllers.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kolich.havalo.client.service.HavaloClient;
 import com.kolich.twitter.TwitterApiConnector;
-import com.kolich.twittercache.spring.controllers.AbstractTwitterCacheAPIController;
-import com.kolich.twittercache.spring.controllers.TwitterCacheControllerClosure;
+import com.kolich.twitterfeed.spring.controllers.AbstractTwitterFeedAPIController;
+import com.kolich.twitterfeed.spring.controllers.TwitterFeedControllerClosure;
 
 @Controller
 @RequestMapping(value="feed")
-public final class Feed extends AbstractTwitterCacheAPIController {
+public final class Feed extends AbstractTwitterFeedAPIController {
 	
 	private static final Logger logger__ = LoggerFactory.getLogger(Feed.class);
 	
@@ -30,7 +30,7 @@ public final class Feed extends AbstractTwitterCacheAPIController {
 	@RequestMapping(method={RequestMethod.GET, RequestMethod.HEAD},
 		value="{username}")
 	public ModelAndView feed(@PathVariable final String username) {
-		return new TwitterCacheControllerClosure<ModelAndView>(
+		return new TwitterFeedControllerClosure<ModelAndView>(
 			"GET:/api/feed/" + username, logger__) {
 			@Override
 			public ModelAndView doit() throws Exception {
