@@ -41,30 +41,25 @@
 		p:order="#{T(org.springframework.core.Ordered).HIGHEST_PRECEDENCE}">	
 		<property name="mediaTypes">
 			<map>
+				<entry key="json" value="application/json" />
 				<entry key="html" value="text/html" />
 			</map>
 		</property>
 		<property name="defaultContentType" value="text/html" />
 		<property name="favorPathExtension" value="true" />
-		<property name="ignoreAcceptHeader" value="true" />		
+		<property name="ignoreAcceptHeader" value="true" />
 		<property name="viewResolvers">
 			<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">  
 				<property name="prefix" value="/WEB-INF/jsp/" />  
 				<property name="suffix" value=".jsp" />
-				<!--
-					A list of beans by ID that can be directly accessed in the
-					view layer (in a JSP) using the ${...} notation.
-				-->
-				<!--
-				<property name="exposedContextBeanNames">
-      				<list value-type="java.lang.String">
-				         <value>TwitterFeedBootstrap</value>
-      				</list>
-   				</property>
-   				-->
 			</bean>
 		</property>
 		<property name="globalDefaultView" value="errors/404-not-found" />
+		<property name="defaultViews">
+			<list>
+				<bean class="com.kolich.spring.views.mappers.KolichMappingJSONView" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

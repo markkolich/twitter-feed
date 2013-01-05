@@ -2,12 +2,19 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%--
-<%@ page import="static com.kolich.twitterfeed.spring.AbstractTwitterFeedView.VIEW_PAYLOAD" %>
-<%@ page import="com.kolich.twitterfeed.spring.TwitterFeedViewSerializable" %>
-<%@ page import="com.kolich.twitterfeed.entities.twitter.Tweet" %>
-<%@ page import="com.kolich.twitterfeed.entities.twitter.TweetList" %>
---%>
+<%@ page import="static com.kolich.spring.views.AbstractKolichView.VIEW_PAYLOAD" %>
+<%@ page import="com.kolich.spring.views.KolichViewSerializable" %>
+<%@ page import="com.kolich.twitterfeed.entities.TwitterFeedTweetListEntity" %>
+
+<%
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
+response.setDateHeader("Expires", 0L);
+final TwitterFeedTweetListEntity feed = (TwitterFeedTweetListEntity)
+	((KolichViewSerializable)request.getAttribute(VIEW_PAYLOAD)).getEntity();
+%>
+
+<%= feed.getHtml() %>
 
 <%--
 // Gosh, what a mess.  First we have to extract the serializable
@@ -17,10 +24,9 @@ final TweetList tl = (TweetList)((TwitterFeedViewSerializable)request.getAttribu
 // Binds the List<Tweet> to the page context variable "tweets" so
 // it's accessible by JSTL.
 pageContext.setAttribute("tweets", tl.getTweets());
---%>
-
 <ul>
 	<c:forEach items="${tweets}" var="tweet">
 		<li id="tweet-${tweet.id}">${tweet.html}<br /><em>${tweet.createdAt}</em><br /><br /></li>
 	</c:forEach>
 </ul>
+--%>

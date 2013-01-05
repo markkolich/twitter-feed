@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kolich.havalo.client.service.HavaloClient;
 import com.kolich.twitter.TwitterApiConnector;
+import com.kolich.twitter.entities.TweetList;
+import com.kolich.twitterfeed.entities.TwitterFeedTweetListEntity;
 import com.kolich.twitterfeed.spring.controllers.AbstractTwitterFeedAPIController;
 import com.kolich.twitterfeed.spring.controllers.TwitterFeedControllerClosure;
 
@@ -34,7 +36,8 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 			"GET:/api/feed/" + username, logger__) {
 			@Override
 			public ModelAndView doit() throws Exception {
-				return getModelAndView(VIEW_NAME);
+				return getModelAndView(VIEW_NAME,
+					new TwitterFeedTweetListEntity(new TweetList()));
 			}
 		}.execute();
 	}
