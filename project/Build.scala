@@ -94,7 +94,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "0.1"
+  private val aVer = "1.0"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(
@@ -122,6 +122,14 @@ object TwitterFeed extends Build {
       unmanagedSourceDirectories in Compile in packageSrc <<= baseDirectory(new File(_, "src/main/java"))(Seq(_)),
       // Override the SBT default "target" directory for compiled classes.
       classDirectory in Compile <<= baseDirectory(new File(_, "target/classes")),
+      // Add the local 'config' directory to the classpath at runtime,
+      // so anything there will ~not~ be packaged with the application deliverables.
+      // Things like application configuration .properties files go here in
+      // development and so these will not be packaged+shipped with a build.
+      // But, they are still available on the classpath during development,
+      // like when you run Jetty via the xsbt-web-plugin that looks for some
+      // configuration file or .properties file on the classpath.
+      unmanagedClasspath in Runtime <+= (baseDirectory) map { bd => Attributed.blank(bd / "config") },
       // Do not bother trying to publish artifact docs (scaladoc, javadoc). Meh.
       publishArtifact in packageDoc := false,
       // Override the global name of the artifact.
@@ -150,7 +158,7 @@ object TwitterFeed extends Build {
       Seq(warPostProcess in Compile <<= (target) map {
         // Ensures the src/main/webapp/WEB-INF/work directory is NOT included
         // in the packaged WAR file.  This is a temporary directory used by
-        // the Havalo application and servlet container in development that
+        // the application and servlet container in development that
         // should not be shipped with a build.
         (target) => { () => {
 	      val webinf = target / "webapp" / "WEB-INF"

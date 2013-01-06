@@ -35,6 +35,7 @@ import com.kolich.havalo.client.entities.KeyPair;
 import com.kolich.havalo.client.service.HavaloClient;
 import com.kolich.http.HttpClient4Closure.HttpFailure;
 import com.kolich.http.HttpClient4Closure.HttpResponseEither;
+import com.kolich.twitterfeed.exceptions.TwitterFeedException;
 
 public final class TwitterFeedBootstrap implements InitializingBean {
 	
@@ -50,13 +51,21 @@ public final class TwitterFeedBootstrap implements InitializingBean {
 		
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		logger__.info("bootstrap bitchez");
-		final HttpResponseEither<HttpFailure, KeyPair> auth =
+		// Validate connectivity to Havalo; if that doesn't work then this
+		// web-application is pretty much useless since it relies on the K,V
+		// store API for all underlying operations.
+		final HttpResponseEither<HttpFailure, KeyPair> authCheck =
 			havalo_.authenticate();
-		if(auth.success()) {
-			logger__.info("-------- " + auth.right().getKey().toString());
+		if(authCheck.success()) {
+			logger__.debug("Successfully verified connection to " +
+				"Havalo API (key=" + authCheck.right().getKey().toString() +
+				")");
 		} else {
-			logger__.error("-------- " + auth.left().getStatusCode());
+			final HttpFailure failure = authCheck.left();
+			throw new TwitterFeedException("Failed to verify connection " +
+				"to the Havalo API ... you might be missing a required " +
+				".properties file (status=" + failure.getStatusCode() + ")",
+					failure.getCause());
 		}
 	}
 

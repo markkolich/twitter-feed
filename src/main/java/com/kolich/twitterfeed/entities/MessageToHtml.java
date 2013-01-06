@@ -98,13 +98,11 @@ public class MessageToHtml {
 		return new A().setHref(String.format(TWITTER_HOMEPAGE_URL, screenName))
 			// Target is a blank page.
 			.setTarget(LINK_TARGET_BLANK)
-			// The "rel" attribute of the link is how the app can identify
-			// that this link is one that points to a Twitter user -- so that
-			// when clicked the app can intercept that click and show the Persona
-			// of the clicked user instead of opening a browser window.
+			// The "rel" attribute of the link is how an app can identify
+			// that this link is one that points to a Twitter user.
 			.setRel(LINK_REL_TWITTER)
 			// Add the @username to the text of the anchor.
 			.appendText(screenNameAt).write();
 	}
-		
+	
 }

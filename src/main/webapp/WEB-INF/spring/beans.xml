@@ -19,11 +19,11 @@
     <context:property-placeholder location="file:${catalina.home}/conf/twitterfeed.properties"
     	ignore-unresolvable="true" ignore-resource-not-found="true" order="2" />
     	
-	<!-- The default application properties (NOT packaged with .war) -->
+    <!-- Application properties, used during development. -->
 	<context:property-placeholder location="classpath:override.twitterfeed.properties"
 		ignore-unresolvable="true" ignore-resource-not-found="true" order="3" />
     	
-   	<!-- The default application properties (packaged with .war) -->
+    <!-- The default application properties (packaged with .war) -->
 	<context:property-placeholder location="classpath:default.twitterfeed.properties"
 		ignore-unresolvable="true" order="4" />
 		

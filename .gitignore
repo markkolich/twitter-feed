@@ -6,6 +6,6 @@ project/target
 dist
 target
 bin
+config
 
 src/main/webapp/WEB-INF/work
-src/main/resources/override.twitterfeed.properties
