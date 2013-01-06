@@ -1,7 +1,7 @@
 package com.kolich.twitterfeed.spring.controllers.api;
 
 import static com.kolich.common.DefaultCharacterEncoding.UTF_8;
-import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonBuilder;
+import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonInstance;
 import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 
 import org.apache.http.util.EntityUtils;
@@ -50,7 +50,7 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 			@Override
 			public ModelAndView doit() throws Exception {
 				// Attempt to load the users' tweets from the Havalo K,V store.				
-				final HttpResponseEither<HttpFailure,TwitterFeedTweetListEntity>
+				final HttpResponseEither<HttpFailure, TwitterFeedTweetListEntity>
 					tweets = getTweets(username);
 				// Check if we got a list of tweets back.  If so, serve
 				// 'em up.  If not, throw the right exception so the
@@ -78,7 +78,7 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 			@Override
 			public TwitterFeedTweetListEntity convert(final HttpSuccess success)
 				throws Exception {
-				final TweetList tl = getNewTwitterGsonBuilder().create().fromJson(
+				final TweetList tl = getNewTwitterGsonInstance().fromJson(
 					EntityUtils.toString(success.getResponse().getEntity(), UTF_8),
 					TweetList.class);
 				return new TwitterFeedTweetListEntity(tl);

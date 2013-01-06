@@ -1,5 +1,7 @@
 package com.kolich.twitterfeed.entities;
 
+import static com.kolich.twitterfeed.entities.MessageToHtml.makeHyperlinks;
+
 import com.hp.gagawa.java.elements.Br;
 import com.hp.gagawa.java.elements.Em;
 import com.hp.gagawa.java.elements.Li;
@@ -28,7 +30,7 @@ public final class TwitterFeedTweetListEntity extends TwitterEntity {
 			// <li id="tweet-${tweet.id}">${tweet.html}<br /><em>${tweet.createdAt}</em><br /><br /></li>
 			final Li li = new Li()
 				.setId(t.getId())
-				.appendChild(new Text(t.getText()))
+				.appendChild(new Text(makeHyperlinks(t.getText())))
 				.appendChild(new Br());
 			final Em createdAt = new Em().appendText(t.getCreatedAt().toString());
 			li.appendChild(createdAt);
