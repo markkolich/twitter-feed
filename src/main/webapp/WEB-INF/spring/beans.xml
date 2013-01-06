@@ -51,10 +51,5 @@
 		<constructor-arg index="3"><value>${twitter.api.token}</value></constructor-arg>
 		<constructor-arg index="4"><value>${twitter.api.token.secret}</value></constructor-arg>
 	</bean>
-   	
-   	<!-- Bootstrap -->
-   	
-   	<bean id="TwitterFeedBootstrap"
-   		class="com.kolich.twitterfeed.spring.beans.TwitterFeedBootstrap" />
-   	
+   	   	
 </beans>
