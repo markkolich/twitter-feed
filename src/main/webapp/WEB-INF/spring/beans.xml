@@ -11,17 +11,21 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 		
-	<!-- Properties file location specific to Jetty deployments. -->
+	<!-- Properties file location specific to Jetty deployments -->
 	<context:property-placeholder location="file:${jetty.home}/conf/twitterfeed.properties"
     	ignore-unresolvable="true" ignore-resource-not-found="true" order="1" />
     
-    <!-- Properties file location specific to Tomcat deployments. -->
+    <!-- Properties file location specific to Tomcat deployments -->
     <context:property-placeholder location="file:${catalina.home}/conf/twitterfeed.properties"
     	ignore-unresolvable="true" ignore-resource-not-found="true" order="2" />
     	
-   	<!-- The default application properties (packaged with .war). -->
-	<context:property-placeholder location="classpath:default.properties"
-		ignore-unresolvable="true" order="3" />
+	<!-- The default application properties (NOT packaged with .war) -->
+	<context:property-placeholder location="classpath:override.twitterfeed.properties"
+		ignore-unresolvable="true" ignore-resource-not-found="true" order="3" />
+    	
+   	<!-- The default application properties (packaged with .war) -->
+	<context:property-placeholder location="classpath:default.twitterfeed.properties"
+		ignore-unresolvable="true" order="4" />
 		
 	<bean id="HttpClient"
 		class="com.kolich.http.KolichDefaultHttpClient.KolichHttpClientFactory"

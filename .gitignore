@@ -8,4 +8,4 @@ target
 bin
 
 src/main/webapp/WEB-INF/work
-src/main/resources/default.properties
+src/main/resources/override.twitterfeed.properties
