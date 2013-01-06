@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+		
+	<bean id="FetchTweetsExecutor"
+		class="com.kolich.twitterfeed.quartz.FetchTweetsExecutor">
+		<property name="twitterApiClient" ref="TwitterApiConnector" />
+		<property name="havaloClient" ref="HavaloClient" />
+		<property name="users">
+			<list value-type="java.lang.String">
+        		<value>markkolich</value>
+        		<value>thamymanjoorsa</value>
+        		<value>vmware</value>
+        	</list>
+		</property>
+		<property name="maxTweetsPerUser" value="${twitter.api.max-tweets-per-user}" />		
+	</bean>
+	
+    <bean id="FetchTweetsExecutorJob"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+				<property name="targetObject" ref="FetchTweetsExecutor" />
+				<property name="targetMethod" value="run" />
+				<!-- Do not allow more than one of these executors to run at one time. -->
+				<property name="concurrent" value="false" />
+			</bean>
+		</property>
+		<!-- Every 30-minutes -->
+		<property name="cronExpression" value="0 0/30 * * * ?" />
+	</bean>
+	
+	<!-- Core scheduler -->
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"
+		destroy-method="destroy">
+		<property name="triggers">
+        	<list>
+        		<ref bean="FetchTweetsExecutorJob" />
+        	</list>
+    	</property>
+    	<property name="quartzProperties">
+    		<props>
+				<prop key="org.quartz.scheduler.skipUpdateCheck">true</prop>	
+			</props>
+    	</property>
+	</bean>
+    
+</beans>

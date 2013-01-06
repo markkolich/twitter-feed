@@ -28,21 +28,12 @@ package com.kolich.twitterfeed.spring.controllers;
 
 import org.slf4j.Logger;
 
-import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.twitter.TwitterApiConnector;
-
 public abstract class AbstractTwitterFeedAPIController {
 	
 	protected final Logger logger_;
-	
-	protected final HavaloClient havalo_;
-	protected final TwitterApiConnector twitter_;
-		
-	protected AbstractTwitterFeedAPIController(final Logger logger,
-		final HavaloClient havalo, final TwitterApiConnector twitter) {
+			
+	protected AbstractTwitterFeedAPIController(final Logger logger) {
 		logger_ = logger;
-		havalo_ = havalo;
-		twitter_ = twitter;
 	}
 	
 }

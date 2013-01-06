@@ -71,9 +71,11 @@
 				<prop key="org.springframework.web.bind.MissingServletRequestParameterException">errors/400-bad-request</prop>
 				<!-- Application specific exceptions. -->
 				<prop key="com.kolich.spring.exceptions.InvalidResourceException">errors/404-not-found</prop>
-				<!-- Typical java exceptions and catch all. -->
+				<prop key="com.kolich.twitterfeed.exceptions.havalo.ResourceNotFoundException">errors/404-not-found</prop>
+				<prop key="com.kolich.twitterfeed.exceptions.TwitterFeedException">errors/503-service-unavailable</prop>
+				<!-- Typical Java exceptions and catch all. -->
 				<prop key="java.lang.IllegalArgumentException">errors/400-bad-request</prop>
-				<prop key="com.kolich.twitterfeed.exceptions.TwitterFeedException">errors/500-internal-server-error</prop>
+				<prop key="java.lang.Exception">errors/500-internal-server-error</prop>
 			</props>
 		</property>
 		<property name="statusCodes">

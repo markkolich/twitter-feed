@@ -26,5 +26,8 @@
 			
 	<!-- Configures Spring 3 MVC -->
 	<import resource="mvc.xml" />
+	
+	<!-- Quartz bean configuration -->
+	<import resource="quartz.xml" />
 			
 </beans>

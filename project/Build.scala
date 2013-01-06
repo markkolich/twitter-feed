@@ -55,7 +55,7 @@ object Dependencies {
   private val jstl = "jstl" % "jstl" % "1.2" % "compile" // Package with WAR
   private val javaEEWebApi = "javax" % "javaee-web-api" % "6.0" % "provided" // Provided by servlet container
 
-  //private val springTx = "org.springframework" % "spring-tx" % "3.1.3.RELEASE" % "compile"
+  private val springTx = "org.springframework" % "spring-tx" % "3.1.3.RELEASE" % "compile"
 
   private val cgLibNoDep = "cglib" % "cglib-nodep" % "2.2.2" % "compile"
 
@@ -72,7 +72,7 @@ object Dependencies {
   val deps = Seq(kolichSpring, kolichTwitter, havaloClient,
     jetty, jettyWebApp, jettyPlus, jettyJsp,
     jspApi, jstl, servlet, javaEEWebApi,
-    //springTx,
+    springTx,
     cgLibNoDep,
     logback, logbackClassic, slf4j, jclOverSlf4j,
     commonsLang, commonsCodec,
