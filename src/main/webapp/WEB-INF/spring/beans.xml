@@ -42,8 +42,8 @@
 		<constructor-arg index="3"><value>${havalo.api.url}</value></constructor-arg>
 	</bean>
 	
-	<bean id="TwitterApiConnector"
-		class="com.kolich.twitter.TwitterApiConnector"
+	<bean id="TwitterApiClient"
+		class="com.kolich.twitter.TwitterApiClient"
 		depends-on="HttpClient">
 		<constructor-arg index="0" ref="HttpClient" />
 		<constructor-arg index="1"><value>${twitter.api.key}</value></constructor-arg>

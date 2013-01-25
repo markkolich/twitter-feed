@@ -18,7 +18,7 @@ import com.kolich.havalo.client.entities.FileObject;
 import com.kolich.havalo.client.service.HavaloClient;
 import com.kolich.http.HttpClient4Closure.HttpFailure;
 import com.kolich.http.HttpClient4Closure.HttpResponseEither;
-import com.kolich.twitter.TwitterApiConnector;
+import com.kolich.twitter.TwitterApiClient;
 import com.kolich.twitter.entities.Tweet;
 import com.kolich.twitter.entities.TweetList;
 import com.kolich.twitterfeed.exceptions.TwitterFeedException;
@@ -30,7 +30,7 @@ public final class FetchTweetsExecutor implements Runnable, InitializingBean {
 	
 	private static final int DEFAULT_MAX_TWEETS_PER_USER = 10;
 		
-	private TwitterApiConnector twitter_;
+	private TwitterApiClient twitter_;
 	private HavaloClient havalo_;
 	
 	/**
@@ -118,7 +118,7 @@ public final class FetchTweetsExecutor implements Runnable, InitializingBean {
 		}
 	}
 		
-	public void setTwitterApiClient(final TwitterApiConnector twitter) {
+	public void setTwitterApiClient(final TwitterApiClient twitter) {
 		twitter_ = twitter;
 	}
 	

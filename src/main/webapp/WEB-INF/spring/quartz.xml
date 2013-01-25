@@ -11,7 +11,7 @@
 		
 	<bean id="FetchTweetsExecutor"
 		class="com.kolich.twitterfeed.spring.quartz.FetchTweetsExecutor">
-		<property name="twitterApiClient" ref="TwitterApiConnector" />
+		<property name="twitterApiClient" ref="TwitterApiClient" />
 		<property name="havaloClient" ref="HavaloClient" />
 		<property name="users">
 			<list value-type="java.lang.String">
