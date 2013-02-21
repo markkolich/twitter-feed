@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.http.HttpClient4Closure.HttpFailure;
-import com.kolich.http.HttpClient4Closure.HttpResponseEither;
-import com.kolich.http.HttpClient4Closure.HttpSuccess;
-import com.kolich.http.helpers.definitions.CustomEntityConverter;
+import com.kolich.http.blocking.helpers.definitions.CustomEntityConverter;
+import com.kolich.http.common.either.HttpResponseEither;
+import com.kolich.http.common.response.HttpFailure;
+import com.kolich.http.common.response.HttpSuccess;
 import com.kolich.twitter.entities.TweetList;
 import com.kolich.twitterfeed.entities.TwitterFeedTweetListEntity;
 import com.kolich.twitterfeed.exceptions.TwitterFeedException;
@@ -74,14 +74,19 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 	
 	private HttpResponseEither<HttpFailure,TwitterFeedTweetListEntity> getTweets(
 		final String username) {
-		return havalo_.getObject(new CustomEntityConverter<TwitterFeedTweetListEntity>() {
+		return havalo_.getObject(
+			new CustomEntityConverter<HttpFailure,TwitterFeedTweetListEntity>() {
 			@Override
-			public TwitterFeedTweetListEntity convert(final HttpSuccess success)
+			public TwitterFeedTweetListEntity success(final HttpSuccess success)
 				throws Exception {
 				final TweetList tl = getNewTwitterGsonInstance().fromJson(
-					EntityUtils.toString(success.getResponse().getEntity(), UTF_8),
+					EntityUtils.toString(success.getEntity(), UTF_8),
 					TweetList.class);
 				return new TwitterFeedTweetListEntity(tl);
+			}
+			@Override
+			public HttpFailure failure(final HttpFailure failure) {
+				return failure;
 			}
 		}, username);
 	}

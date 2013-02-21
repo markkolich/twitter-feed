@@ -16,8 +16,8 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.kolich.havalo.client.entities.FileObject;
 import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.http.HttpClient4Closure.HttpFailure;
-import com.kolich.http.HttpClient4Closure.HttpResponseEither;
+import com.kolich.http.common.either.HttpResponseEither;
+import com.kolich.http.common.response.HttpFailure;
 import com.kolich.twitter.TwitterApiClient;
 import com.kolich.twitter.entities.Tweet;
 import com.kolich.twitter.entities.TweetList;

@@ -39,22 +39,21 @@ object Dependencies {
 
   // Internal dependencies
 
-  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.5" % "compile"
-  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.5" % "compile"
-  private val havaloClient = "com.kolich" % "havalo-client" % "1.0" % "compile"
+  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.6" % "compile"
+  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.6" % "compile"
+  private val havaloClient = "com.kolich" % "havalo-client" % "1.1.3" % "compile"
 
   // External dependencies
 
-  private val jetty = "org.eclipse.jetty" % "jetty-server" % "8.0.4.v20111024" % "container"
-  private val jettyWebApp = "org.eclipse.jetty" % "jetty-webapp" % "8.0.4.v20111024" % "container"
-  private val jettyPlus = "org.eclipse.jetty" % "jetty-plus" % "8.0.4.v20111024" % "container"
-  private val jettyJsp = "org.mortbay.jetty" % "jsp-2.1-glassfish" % "2.1.v20100127" % "container"
-
-  private val jspApi = "javax.servlet.jsp" % "jsp-api" % "2.2" % "provided" // Provided by servlet container  
-  private val servlet = "org.glassfish" % "javax.servlet" % "3.0" % "provided" // Provided by servlet container
-  private val jstl = "jstl" % "jstl" % "1.2" % "compile" // Package with WAR
-  private val javaEEWebApi = "javax" % "javaee-web-api" % "6.0" % "provided" // Provided by servlet container
-
+  // Using Jetty 8 "stable", version 8.1.8.v20121106
+  private val jettyWebApp = "org.eclipse.jetty" % "jetty-webapp" % "8.1.8.v20121106" % "container"
+  private val jettyPlus = "org.eclipse.jetty" % "jetty-plus" % "8.1.8.v20121106" % "container"
+  private val jettyJsp = "org.eclipse.jetty" % "jetty-jsp" % "8.1.8.v20121106" % "container"
+  
+  private val jspApi = "javax.servlet.jsp" % "jsp-api" % "2.2" % "provided" // Provided by container  
+  private val jstl = "javax.servlet" % "jstl" % "1.2" % "compile" // Package with WAR
+  private val javaServletApi = "javax.servlet" % "javax.servlet-api" % "3.0.1" % "provided" // Provided by container
+  
   private val springTx = "org.springframework" % "spring-tx" % "3.1.3.RELEASE" % "compile"
 
   private val cgLibNoDep = "cglib" % "cglib-nodep" % "2.2.2" % "compile"
@@ -70,8 +69,8 @@ object Dependencies {
   private val quartz = "org.quartz-scheduler" % "quartz" % "1.8.6" % "compile"
 
   val deps = Seq(kolichSpring, kolichTwitter, havaloClient,
-    jetty, jettyWebApp, jettyPlus, jettyJsp,
-    jspApi, jstl, servlet, javaEEWebApi,
+    jettyWebApp, jettyPlus, jettyJsp,
+    jspApi, jstl, javaServletApi,
     springTx,
     cgLibNoDep,
     logback, logbackClassic, slf4j, jclOverSlf4j,
@@ -94,7 +93,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "1.1"
+  private val aVer = "1.2"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(
