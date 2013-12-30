@@ -27,21 +27,17 @@
 import sbt._
 import sbt.Keys._
 
-import com.github.siasia._
+import com.earldouglas.xsbtwebplugin._
+import PluginKeys._
 import WebPlugin._
-import WebappPlugin._
-import com.github.siasia.WebPlugin
-import com.github.siasia.PluginKeys._
-
-import com.typesafe.sbteclipse.plugin.EclipsePlugin._
 
 object Dependencies {
 
   // Internal dependencies
 
-  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.6" % "compile"
-  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.6" % "compile"
-  private val havaloClient = "com.kolich" % "havalo-client" % "1.1.3" % "compile"
+  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.7" % "compile"
+  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.8" % "compile"
+  private val havaloClient = "com.kolich" % "havalo-client" % "1.3" % "compile"
 
   // External dependencies
 
@@ -168,12 +164,7 @@ object TwitterFeed extends Build {
       // xsbt-web-plugin.
       artifactPath in (Compile, packageWar) ~= { defaultPath =>
         file("dist") / defaultPath.getName
-      }) ++
-      Seq(EclipseKeys.createSrc := EclipseCreateSrc.Default,
-        // Make sure SBT also fetches/loads the "src" (source) JAR's for
-        // all declared dependencies.
-        EclipseKeys.withSource := true,
-        // This is a Java project, only.
-        EclipseKeys.projectFlavor := EclipseProjectFlavor.Java))
+      })
+  )
 
 }
