@@ -24,7 +24,7 @@
 	</bean>
 	
     <bean id="FetchTweetsExecutorJob"
-		class="org.springframework.scheduling.quartz.CronTriggerBean">
+		class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<bean class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 				<property name="targetObject" ref="FetchTweetsExecutor" />

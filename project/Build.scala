@@ -35,9 +35,9 @@ object Dependencies {
 
   // Internal dependencies
 
-  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.7" % "compile"
-  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.0.8" % "compile"
-  private val havaloClient = "com.kolich" % "havalo-client" % "1.3" % "compile"
+  private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.8" % "compile"
+  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.1.0" % "compile"
+  private val havaloClient = "com.kolich" % "havalo-client" % "1.3.1" % "compile"
 
   // External dependencies
 
@@ -49,8 +49,9 @@ object Dependencies {
   private val jspApi = "javax.servlet.jsp" % "jsp-api" % "2.2" % "provided" // Provided by container  
   private val jstl = "javax.servlet" % "jstl" % "1.2" % "compile" // Package with WAR
   private val javaServletApi = "javax.servlet" % "javax.servlet-api" % "3.0.1" % "provided" // Provided by container
-  
-  private val springTx = "org.springframework" % "spring-tx" % "3.1.3.RELEASE" % "compile"
+
+  private val springContextSupport = "org.springframework" % "spring-context-support" % "3.2.6.RELEASE" % "compile"
+  private val springTx = "org.springframework" % "spring-tx" % "3.2.6.RELEASE" % "compile"
 
   private val cgLibNoDep = "cglib" % "cglib-nodep" % "2.2.2" % "compile"
 
@@ -62,12 +63,12 @@ object Dependencies {
   private val commonsLang = "org.apache.commons" % "commons-lang3" % "3.1" % "compile"
   private val commonsCodec = "commons-codec" % "commons-codec" % "1.6" % "compile"
 
-  private val quartz = "org.quartz-scheduler" % "quartz" % "1.8.6" % "compile"
+  private val quartz = "org.quartz-scheduler" % "quartz" % "2.2.1" % "compile"
 
   val deps = Seq(kolichSpring, kolichTwitter, havaloClient,
     jettyWebApp, jettyPlus, jettyJsp,
     jspApi, jstl, javaServletApi,
-    springTx,
+    springTx, springContextSupport,
     cgLibNoDep,
     logback, logbackClassic, slf4j, jclOverSlf4j,
     commonsLang, commonsCodec,
@@ -89,7 +90,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "1.1"
+  private val aVer = "1.2"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(

@@ -1,27 +1,26 @@
 package com.kolich.twitterfeed.spring.quartz;
 
-import static com.google.common.net.HttpHeaders.ETAG;
-import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonInstance;
-import static org.apache.commons.codec.binary.StringUtils.getBytesUtf8;
-import static org.apache.http.HttpHeaders.CONTENT_TYPE;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.kolich.common.functional.either.Either;
+import com.kolich.havalo.client.entities.FileObject;
+import com.kolich.havalo.client.service.HavaloClient;
+import com.kolich.http.common.response.HttpFailure;
+import com.kolich.twitter.TwitterApiClient;
+import com.kolich.twitter.entities.Tweet;
+import com.kolich.twitter.entities.TweetList;
+import com.kolich.twitterfeed.exceptions.TwitterFeedException;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
-import com.kolich.havalo.client.entities.FileObject;
-import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.http.common.either.HttpResponseEither;
-import com.kolich.http.common.response.HttpFailure;
-import com.kolich.twitter.TwitterApiClient;
-import com.kolich.twitter.entities.Tweet;
-import com.kolich.twitter.entities.TweetList;
-import com.kolich.twitterfeed.exceptions.TwitterFeedException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.google.common.net.HttpHeaders.ETAG;
+import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonInstance;
+import static org.apache.commons.codec.binary.StringUtils.getBytesUtf8;
+import static org.apache.http.HttpHeaders.CONTENT_TYPE;
 
 public final class FetchTweetsExecutor implements Runnable, InitializingBean {
 	
@@ -60,7 +59,7 @@ public final class FetchTweetsExecutor implements Runnable, InitializingBean {
 			// Twitter API, then cache them in Havalo.
 			for(final String username : users_) {
 				try {
-					final HttpResponseEither<HttpFailure, List<Tweet>> twitter =
+					final Either<HttpFailure, List<Tweet>> twitter =
 						twitter_.getTweets(username);
 					if(!twitter.success()) {
 						final HttpFailure failure = twitter.left();
@@ -97,7 +96,7 @@ public final class FetchTweetsExecutor implements Runnable, InitializingBean {
 	private void saveTweets(final String username, final List<Tweet> tweets) {
 		final List<Header> headers = new ArrayList<Header>(1);
 		headers.add(new BasicHeader(CONTENT_TYPE, "application/json"));
-		final HttpResponseEither<HttpFailure, FileObject> response =
+		final Either<HttpFailure, FileObject> response =
 			havalo_.putObject(
 				// The actual list of tweets, JSON serialized.
 				getBytesUtf8(getNewTwitterGsonInstance().toJson(

@@ -1,9 +1,16 @@
 package com.kolich.twitterfeed.spring.controllers.api;
 
-import static com.kolich.common.DefaultCharacterEncoding.UTF_8;
-import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonInstance;
-import static org.apache.http.HttpStatus.SC_NOT_FOUND;
-
+import com.kolich.common.functional.either.Either;
+import com.kolich.havalo.client.service.HavaloClient;
+import com.kolich.http.blocking.helpers.definitions.CustomEntityConverter;
+import com.kolich.http.common.response.HttpFailure;
+import com.kolich.http.common.response.HttpSuccess;
+import com.kolich.twitter.entities.TweetList;
+import com.kolich.twitterfeed.entities.TwitterFeedTweetListEntity;
+import com.kolich.twitterfeed.exceptions.TwitterFeedException;
+import com.kolich.twitterfeed.exceptions.havalo.ResourceNotFoundException;
+import com.kolich.twitterfeed.spring.controllers.AbstractTwitterFeedAPIController;
+import com.kolich.twitterfeed.spring.controllers.TwitterFeedControllerClosure;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,17 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.http.blocking.helpers.definitions.CustomEntityConverter;
-import com.kolich.http.common.either.HttpResponseEither;
-import com.kolich.http.common.response.HttpFailure;
-import com.kolich.http.common.response.HttpSuccess;
-import com.kolich.twitter.entities.TweetList;
-import com.kolich.twitterfeed.entities.TwitterFeedTweetListEntity;
-import com.kolich.twitterfeed.exceptions.TwitterFeedException;
-import com.kolich.twitterfeed.exceptions.havalo.ResourceNotFoundException;
-import com.kolich.twitterfeed.spring.controllers.AbstractTwitterFeedAPIController;
-import com.kolich.twitterfeed.spring.controllers.TwitterFeedControllerClosure;
+import static com.kolich.common.DefaultCharacterEncoding.UTF_8;
+import static com.kolich.twitter.entities.TwitterEntity.getNewTwitterGsonInstance;
+import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 
 @Controller
 @RequestMapping(value="feed")
@@ -50,7 +49,7 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 			@Override
 			public ModelAndView doit() throws Exception {
 				// Attempt to load the users' tweets from the Havalo K,V store.				
-				final HttpResponseEither<HttpFailure, TwitterFeedTweetListEntity>
+				final Either<HttpFailure, TwitterFeedTweetListEntity>
 					tweets = getTweets(username);
 				// Check if we got a list of tweets back.  If so, serve
 				// 'em up.  If not, throw the right exception so the
@@ -72,7 +71,7 @@ public final class Feed extends AbstractTwitterFeedAPIController {
 		}.execute();
 	}
 	
-	private HttpResponseEither<HttpFailure,TwitterFeedTweetListEntity> getTweets(
+	private Either<HttpFailure,TwitterFeedTweetListEntity> getTweets(
 		final String username) {
 		return havalo_.getObject(
 			new CustomEntityConverter<HttpFailure,TwitterFeedTweetListEntity>() {
