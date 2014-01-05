@@ -36,7 +36,7 @@ object Dependencies {
   // Internal dependencies
 
   private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.8" % "compile"
-  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.1.0" % "compile"
+  private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.1.1" % "compile"
   private val havaloClient = "com.kolich" % "havalo-client" % "1.3.1" % "compile"
 
   // External dependencies
@@ -90,7 +90,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "1.3"
+  private val aVer = "1.3.1"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(
