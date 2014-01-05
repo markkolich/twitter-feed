@@ -90,7 +90,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "1.2"
+  private val aVer = "1.3"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(
