@@ -37,7 +37,7 @@ object Dependencies {
 
   private val kolichSpring = "com.kolich" % "kolich-spring" % "0.0.8" % "compile"
   private val kolichTwitter = "com.kolich" % "kolich-twitter" % "0.1.1" % "compile"
-  private val havaloClient = "com.kolich" % "havalo-client" % "1.3.1" % "compile"
+  private val havaloKvsClient = "com.kolich" % "havalo-kvs-client" % "1.4" % "compile"
 
   // External dependencies
 
@@ -65,7 +65,7 @@ object Dependencies {
 
   private val quartz = "org.quartz-scheduler" % "quartz" % "2.2.1" % "compile"
 
-  val deps = Seq(kolichSpring, kolichTwitter, havaloClient,
+  val deps = Seq(kolichSpring, kolichTwitter, havaloKvsClient,
     jettyWebApp, jettyPlus, jettyJsp,
     jspApi, jstl, javaServletApi,
     springTx, springContextSupport,
@@ -78,7 +78,7 @@ object Dependencies {
 
 object Resolvers {
 
-  private val kolichRepo = "Kolich repo" at "http://markkolich.github.com/repo"
+  private val kolichRepo = "Kolich repo" at "http://markkolich.github.io/repo"
 
   val depResolvers = Seq(kolichRepo)
 
@@ -90,7 +90,7 @@ object TwitterFeed extends Build {
   import Resolvers._
 
   private val aName = "twitter-feed"
-  private val aVer = "1.3.1"
+  private val aVer = "1.4"
   private val aOrg = "com.kolich"
 
   lazy val twitterFeed: Project = Project(
@@ -156,7 +156,7 @@ object TwitterFeed extends Build {
         // in the packaged WAR file.  This is a temporary directory used by
         // the application and servlet container in development that
         // should not be shipped with a build.
-        (target) => { () => {
+        (target) => { (target) => {
 	      val webinf = target / "webapp" / "WEB-INF"
 	      IO.delete(webinf / "work") // recursive
         }}

@@ -2,7 +2,7 @@ package com.kolich.twitterfeed.spring.controllers.api;
 
 import com.kolich.common.functional.either.Either;
 import com.kolich.havalo.client.service.HavaloClient;
-import com.kolich.http.blocking.helpers.definitions.CustomEntityConverter;
+import com.kolich.http.helpers.definitions.CustomEntityConverter;
 import com.kolich.http.common.response.HttpFailure;
 import com.kolich.http.common.response.HttpSuccess;
 import com.kolich.twitter.entities.TweetList;
