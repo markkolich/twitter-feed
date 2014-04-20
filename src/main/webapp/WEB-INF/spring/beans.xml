@@ -28,7 +28,7 @@
 		ignore-unresolvable="true" order="4" />
 		
 	<bean id="HttpClient"
-		class="com.kolich.http.blocking.KolichDefaultHttpClient.KolichHttpClientFactory"
+		class="com.kolich.http.KolichDefaultHttpClient.KolichHttpClientFactory"
 		factory-method="getNewInstanceNoProxySelector">
 		<constructor-arg><value>twitter-feed (+https://github.com/markkolich/twitter-feed; username=${twitter.api.username})</value></constructor-arg>
 	</bean>
