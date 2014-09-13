@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Mark S. Kolich
+ * Copyright (c) 2014 Mark S. Kolich
  * http://mark.koli.ch
  *
  * Permission is hereby granted, free of charge, to any person
@@ -96,10 +96,10 @@ object TwitterFeed extends Build {
   lazy val twitterFeed: Project = Project(
     aName,
     new File("."),
-    settings = Defaults.defaultSettings ++ Seq(resolvers := depResolvers) ++ Seq(
+    settings = Defaults.coreDefaultSettings ++ Seq(resolvers := depResolvers) ++ Seq(
       version := aVer,
       organization := aOrg,
-      scalaVersion := "2.9.2",
+      scalaVersion := "2.10.4",
       javacOptions ++= Seq("-Xlint", "-g"),
       shellPrompt := { (state: State) => { "%s:%s> ".format(aName, aVer) } },
       // True to export the packaged JAR instead of just the compiled .class files.
